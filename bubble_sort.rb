@@ -4,7 +4,7 @@ def bubble_sort(array)
   loop do
     break if array[last_left_elem].nil?
 
-    # inner loop moves the largest num (and next ones) to the right most part of the array
+    # inner loop moves the largest num (and next ones) to the right part of the array
     array[0..last_left_elem].each.with_index do |num, index|
       if array[index] > array[index+1]
         # swap 'em
