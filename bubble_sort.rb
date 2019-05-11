@@ -10,7 +10,6 @@ def bubble_sort(array)
         # swap 'em
         array[index], array[index+1] = array[index+1], array[index]
       end
-
     end
 
     # move last_left_elem one position to the left
