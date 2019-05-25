@@ -60,7 +60,7 @@ module Enumerable
     result
   end
  
-  def my_count(*obj)
+  def my_count(obj=nil)
     count = 0
    
     if block_given?
@@ -68,12 +68,12 @@ module Enumerable
         count += 1 if yield(e)
       end
     else
-      if obj.length == 1
+      if obj
         self.my_each do |e|
-          count += 1 if e == obj[0]
+          count += 1 if e == obj
         end
-      elsif obj.length == 0
-          count = self.length
+      else
+        count = self.length
       end
     end
    
@@ -83,21 +83,21 @@ module Enumerable
   def my_map(proc=nil)
     result = []
 
-    if proc.nil? && block_given?
-      self.my_each do |e|
-        result << yield(e)
-      end
-    else
+    if proc
       self.my_each do |e|
         result << proc.call(e)
+      end
+    elsif proc.nil? && block_given?
+      self.my_each do |e|
+        result << yield(e)
       end
     end
    
     result
   end
  
-  def my_inject(*obj)
-    accumulator = obj[0] ? obj[0] : 0
+  def my_inject(obj=nil)
+    accumulator = obj ? obj : 0
    
     self.my_each do |e|
       accumulator = yield(accumulator, e)
@@ -112,4 +112,3 @@ end
 def multiply_els(array)
   array.my_inject(1) { |acc, e| acc * e }
 end
-
